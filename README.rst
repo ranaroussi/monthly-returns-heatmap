@@ -58,7 +58,9 @@ Next, we'll import ``returns_heatmap`` and plot the monthly return heatmap:
 
 
 .. image:: https://raw.githubusercontent.com/ranaroussi/monthly-returns-heatmap/master/demo.png
-   :alt: demo
+    :width: 720
+    :height: 318
+    :alt: demo
 
 
 **Getting data only (no plotting**
