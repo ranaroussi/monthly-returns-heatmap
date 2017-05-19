@@ -47,17 +47,17 @@ First, let's download SPY's daily close prices from Google finance.
     from pandas_datareader import data
     prices = data.get_data_google("SPY")['Close']
 
-Next, we'll import ``returns_heatmap`` and plot the monthly return heatmap:
+Next, we'll import ``monthly_returns_heatmap`` and plot the monthly return heatmap:
 
 .. code:: python
 
     import monthly_returns_heatmap as mrh
 
-    prices.plot_returns_heatmap()
+    prices.plot_monthly_returns_heatmap()
     # mrh.plot(prices) # <== or using direct call
 
 
-.. image:: https://raw.githubusercontent.com/ranaroussi/monthly-returns-heatmap/master/demo.png
+.. image:: https://raw.githubusercontent.com/ranaroussi/monthly-returns-heatmap/master/demo.png?
     :width: 720
     :height: 318
     :alt: demo
@@ -67,7 +67,7 @@ Next, we'll import ``returns_heatmap`` and plot the monthly return heatmap:
 
 .. code:: python
 
-    returns = prices.get_returns_heatmap()
+    returns = prices.get_monthly_returns_heatmap()
     # returns = mrh.get(prices) # <== or using direct call
 
     print(returns)
@@ -100,11 +100,11 @@ Plot Parameters (optional)
 Installation
 ------------
 
-Install ``returns_heatmap`` using ``pip``:
+Install ``monthly_returns_heatmap`` using ``pip``:
 
 .. code:: bash
 
-    $ pip install returns_heatmap --upgrade --no-cache-dir
+    $ pip install monthly_returns_heatmap --upgrade --no-cache-dir
 
 Requirements
 ------------
