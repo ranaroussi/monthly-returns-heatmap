@@ -1,0 +1,5 @@
+__pycache__/*
+monthly_returns_heatmap/__pycache__/*
+dist
+monthly_returns_heatmap.egg-info
+*.pyc
