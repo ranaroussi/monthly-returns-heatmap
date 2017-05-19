@@ -60,6 +60,7 @@ def get(prices):
 def plot(prices,
          title="Monthly Returns (%)",
          title_color="black",
+         title_size=12,
          annot_size=10,
          figsize=None,
          cmap='RdYlGn',
@@ -78,7 +79,7 @@ def plot(prices,
     ax = sns.heatmap(prices, ax=ax, annot=True,
                      annot_kws={"size": annot_size}, fmt="0.2f", linewidths=0.5,
                      square=square, cbar=cbar, cmap=cmap)
-    ax.set_title(title, fontsize=12, color=title_color, fontweight="bold")
+    ax.set_title(title, fontsize=title_size, color=title_color, fontweight="bold")
 
     fig.subplots_adjust(hspace=0)
     plt.yticks(rotation=0)
