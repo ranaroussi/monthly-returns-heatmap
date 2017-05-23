@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __author__ = "Ran Aroussi"
 __all__ = ['get', 'plot']
 
@@ -28,36 +28,35 @@ import seaborn as sns
 from pandas.core.base import PandasObject
 
 
-def get(prices):
+def get(returns):
 
     # resample to business month
-    prices = prices.resample('BMS').last()
+    returns = returns.resample('BMS').sum()
 
     # get close / first column if given DataFrame
-    if isinstance(prices, pd.DataFrame):
-        prices.columns = map(str.lower, prices.columns)
-        if len(prices.columns) > 1 and 'close' in prices.columns:
-            prices = prices['close']
+    if isinstance(returns, pd.DataFrame):
+        returns.columns = map(str.lower, returns.columns)
+        if len(returns.columns) > 1 and 'close' in returns.columns:
+            returns = returns['close']
         else:
-            prices = prices[prices.columns[0]]
+            returns = returns[returns.columns[0]]
 
-    # get pricesframe
-    prices = pd.DataFrame(data={'close': prices})
-    prices['Year'] = prices.index.strftime('%Y')
-    prices['Month'] = prices.index.strftime('%b')
-    prices['Returns'] = prices['close'].pct_change()
+    # get returnsframe
+    returns = pd.DataFrame(data={'Returns': returns})
+    returns['Year'] = returns.index.strftime('%Y')
+    returns['Month'] = returns.index.strftime('%b')
 
     # make pivot table
-    prices = prices.pivot('Year', 'Month', 'Returns').fillna(0)
+    returns = returns.pivot('Year', 'Month', 'Returns').fillna(0)
 
     # order columns by month
-    prices = prices[['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    returns = returns[['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']]
 
-    return prices
+    return returns
 
 
-def plot(prices,
+def plot(returns,
          title="Monthly Returns (%)",
          title_color="black",
          title_size=12,
@@ -67,8 +66,8 @@ def plot(prices,
          cbar=True,
          square=False):
 
-    prices = get(prices)
-    prices *= 100
+    returns = get(returns)
+    returns *= 100
 
     if figsize is None:
         size = list(plt.gcf().get_size_inches())
@@ -76,7 +75,7 @@ def plot(prices,
         plt.close()
 
     fig, ax = plt.subplots(figsize=figsize)
-    ax = sns.heatmap(prices, ax=ax, annot=True,
+    ax = sns.heatmap(returns, ax=ax, annot=True,
                      annot_kws={"size": annot_size}, fmt="0.2f", linewidths=0.5,
                      square=square, cbar=cbar, cmap=cmap)
     ax.set_title(title, fontsize=title_size, color=title_color, fontweight="bold")
