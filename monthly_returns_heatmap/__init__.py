@@ -49,6 +49,12 @@ def get(returns):
     # make pivot table
     returns = returns.pivot('Year', 'Month', 'Returns').fillna(0)
 
+    # handle missing months
+    for month in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']:
+        if month not in returns.columns:
+            returns.loc[:, month] = 0
+
     # order columns by month
     returns = returns[['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']]
