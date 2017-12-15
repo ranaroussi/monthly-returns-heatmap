@@ -63,9 +63,9 @@ def get(returns):
 
 
 def plot(returns,
-         title="Monthly Returns (%)",
+         title="Monthly Returns (%)\n",
          title_color="black",
-         title_size=12,
+         title_size=14,
          annot_size=10,
          figsize=None,
          cmap='RdYlGn',
@@ -81,7 +81,7 @@ def plot(returns,
         plt.close()
 
     fig, ax = plt.subplots(figsize=figsize)
-    ax = sns.heatmap(returns, ax=ax, annot=True,
+    ax = sns.heatmap(returns, ax=ax, annot=True, center=0,
                      annot_kws={"size": annot_size}, fmt="0.2f", linewidths=0.5,
                      square=square, cbar=cbar, cmap=cmap)
     ax.set_title(title, fontsize=title_size, color=title_color, fontweight="bold")
