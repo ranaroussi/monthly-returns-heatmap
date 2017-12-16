@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.0.6"
+__version__ = "0.0.7"
 __author__ = "Ran Aroussi"
 __all__ = ['get', 'plot']
 
@@ -28,10 +28,14 @@ import seaborn as sns
 from pandas.core.base import PandasObject
 
 
-def get(returns, ytd=False, is_prices=False):
-
+def sum_returns(df, groupby):
     def returns_prod(returns):
         return (returns + 1).prod() - 1
+
+    return df.groupby(groupby).apply(returns_prod)
+
+
+def get(returns, eoy=False, is_prices=False):
 
     # get close / first column if given DataFrame
     if isinstance(returns, pd.DataFrame):
@@ -45,13 +49,12 @@ def get(returns, ytd=False, is_prices=False):
     if is_prices:
         returns = returns.pct_change()
 
+    original_returns = returns.copy()
+
     # build monthly dataframe
-    # returns = returns.resample('BMS').sum()
-    # returns = pd.DataFrame(data={'Returns': returns})
     returns_index = returns.resample('BMS').first().index
-    returns_values = returns.groupby(
-        (returns.index.year, returns.index.month)
-    ).apply(returns_prod).values
+    returns_values = sum_returns(returns,
+        (returns.index.year, returns.index.month)).values
     returns = pd.DataFrame(index=returns_index, data={
                            'Returns': returns_values})
 
@@ -72,8 +75,9 @@ def get(returns, ytd=False, is_prices=False):
     returns = returns[['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']]
 
-    if ytd:
-        returns['YTD'] = returns.T.sum().values
+    if eoy:
+        returns['eoy'] = sum_returns(original_returns,
+            original_returns.index.year).values
 
     return returns
 
@@ -88,9 +92,9 @@ def plot(returns,
          cbar=True,
          square=False,
          is_prices=False,
-         ytd=False):
+         eoy=False):
 
-    returns = get(returns, ytd=ytd, is_prices=is_prices)
+    returns = get(returns, eoy=eoy, is_prices=is_prices)
     returns *= 100
 
     if figsize is None:
@@ -114,3 +118,4 @@ def plot(returns,
 
 PandasObject.get_returns_heatmap = get
 PandasObject.plot_returns_heatmap = plot
+PandasObject.sum_returns = sum_returns

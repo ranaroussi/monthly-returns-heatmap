@@ -90,7 +90,7 @@ Next, we'll import ``monthly_returns_heatmap`` and plot the monthly return heatm
 Get Parameters (optional)
 --------------------------
 - ``is_prices`` - set to ``True`` if the data used is price data instead of returns data
-- ``ytd`` - set to ``True`` to add a **YTD** column with total yearly returns
+- ``eoy`` - set to ``True`` to add a **End Of Year** column with total yearly returns
 
 Plot Parameters (optional)
 --------------------------
@@ -103,7 +103,7 @@ Plot Parameters (optional)
 - ``cbar`` - Show color bar? (defaults to ``True``)
 - ``square`` - Force squere returns boxes? (defaults to ``False``)
 - ``is_prices`` - set to ``True`` if the data used is price data instead of returns data
-- ``ytd`` - set to ``True`` to add a **YTD** column with total yearly returns
+- ``eoy`` - set to ``True`` to add a **End Of Year** column with total yearly returns
 
 Installation
 ------------

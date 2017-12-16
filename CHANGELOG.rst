@@ -1,9 +1,13 @@
 Change Log
 ===========
 
+0.0.7
+-------
+- More accurate EOY return calculations
+
 0.0.6
 -------
-- Option to add ``ytd=True`` to add a **YTD** column with total yearly returns
+- Option to add ``eoy=True`` to add a **End Of Year** column with total yearly returns
 
 0.0.5
 -------
