@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __author__ = "Ran Aroussi"
 __all__ = ['get', 'plot']
 
@@ -28,11 +28,10 @@ import seaborn as sns
 from pandas.core.base import PandasObject
 
 
-def get(returns):
 def get(returns, is_prices=False):
 
-    # resample to business month
-    returns = returns.resample('BMS').sum()
+    def returns_prod(returns):
+        return (returns + 1).prod() - 1
 
     # get close / first column if given DataFrame
     if isinstance(returns, pd.DataFrame):
@@ -46,8 +45,16 @@ def get(returns, is_prices=False):
     if is_prices:
         returns = returns.pct_change()
 
+    # build monthly dataframe
+    # returns = returns.resample('BMS').sum()
+    # returns = pd.DataFrame(data={'Returns': returns})
+    returns_index = returns.resample('BMS').first().index
+    returns_values = returns.groupby(
+        (returns.index.year, returns.index.month)).apply(returns_prod).values
+    returns = pd.DataFrame(index=returns_index, data={
+                           'Returns': returns_values})
+
     # get returnsframe
-    returns = pd.DataFrame(data={'Returns': returns})
     returns['Year'] = returns.index.strftime('%Y')
     returns['Month'] = returns.index.strftime('%b')
 
@@ -56,13 +63,13 @@ def get(returns, is_prices=False):
 
     # handle missing months
     for month in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']:
+                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']:
         if month not in returns.columns:
             returns.loc[:, month] = 0
 
     # order columns by month
     returns = returns[['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']]
+                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']]
 
     return returns
 
@@ -89,7 +96,8 @@ def plot(returns,
     ax = sns.heatmap(returns, ax=ax, annot=True, center=0,
                      annot_kws={"size": annot_size}, fmt="0.2f", linewidths=0.5,
                      square=square, cbar=cbar, cmap=cmap)
-    ax.set_title(title, fontsize=title_size, color=title_color, fontweight="bold")
+    ax.set_title(title, fontsize=title_size,
+                 color=title_color, fontweight="bold")
 
     fig.subplots_adjust(hspace=0)
     plt.yticks(rotation=0)
