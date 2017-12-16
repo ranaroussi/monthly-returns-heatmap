@@ -29,6 +29,7 @@ from pandas.core.base import PandasObject
 
 
 def get(returns):
+def get(returns, is_prices=False):
 
     # resample to business month
     returns = returns.resample('BMS').sum()
@@ -40,6 +41,10 @@ def get(returns):
             returns = returns['close']
         else:
             returns = returns[returns.columns[0]]
+
+    # convert price data to returns
+    if is_prices:
+        returns = returns.pct_change()
 
     # get returnsframe
     returns = pd.DataFrame(data={'Returns': returns})
