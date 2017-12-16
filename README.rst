@@ -87,6 +87,11 @@ Next, we'll import ``monthly_returns_heatmap`` and plot the monthly return heatm
     2017   0.017895   0.039292  -0.003087   0.009926  ...   0.000000
 
 
+Get Parameters (optional)
+--------------------------
+- ``is_prices`` - set to ``True`` if the data used is price data instead of returns data
+- ``ytd`` - set to ``True`` to add a **YTD** column with total yearly returns
+
 Plot Parameters (optional)
 --------------------------
 - ``title`` - Heatmap title (defaults to ``"Monthly Returns (%)"``)
@@ -97,6 +102,8 @@ Plot Parameters (optional)
 - ``cmap`` - Color map (defaults to ``"RdYlGn"``)
 - ``cbar`` - Show color bar? (defaults to ``True``)
 - ``square`` - Force squere returns boxes? (defaults to ``False``)
+- ``is_prices`` - set to ``True`` if the data used is price data instead of returns data
+- ``ytd`` - set to ``True`` to add a **YTD** column with total yearly returns
 
 Installation
 ------------

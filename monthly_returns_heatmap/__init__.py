@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 __author__ = "Ran Aroussi"
 __all__ = ['get', 'plot']
 
@@ -28,7 +28,7 @@ import seaborn as sns
 from pandas.core.base import PandasObject
 
 
-def get(returns, is_prices=False):
+def get(returns, ytd=False, is_prices=False):
 
     def returns_prod(returns):
         return (returns + 1).prod() - 1
@@ -72,6 +72,9 @@ def get(returns, is_prices=False):
     returns = returns[['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']]
 
+    if ytd:
+        returns['YTD'] = returns.T.sum().values
+
     return returns
 
 
@@ -84,9 +87,10 @@ def plot(returns,
          cmap='RdYlGn',
          cbar=True,
          square=False,
-         is_prices=False):
+         is_prices=False,
+         ytd=False):
 
-    returns = get(returns, is_prices)
+    returns = get(returns, ytd=ytd, is_prices=is_prices)
     returns *= 100
 
     if figsize is None:

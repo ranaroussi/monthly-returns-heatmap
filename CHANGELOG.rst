@@ -1,6 +1,10 @@
 Change Log
 ===========
 
+0.0.6
+-------
+- Option to add ``ytd=True`` to add a **YTD** column with total yearly returns
+
 0.0.5
 -------
 - Added price option support to ``plot()``
