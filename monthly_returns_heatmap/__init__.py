@@ -50,7 +50,8 @@ def get(returns, is_prices=False):
     # returns = pd.DataFrame(data={'Returns': returns})
     returns_index = returns.resample('BMS').first().index
     returns_values = returns.groupby(
-        (returns.index.year, returns.index.month)).apply(returns_prod).values
+        (returns.index.year, returns.index.month)
+    ).apply(returns_prod).values
     returns = pd.DataFrame(index=returns_index, data={
                            'Returns': returns_values})
 
@@ -94,7 +95,8 @@ def plot(returns,
 
     fig, ax = plt.subplots(figsize=figsize)
     ax = sns.heatmap(returns, ax=ax, annot=True, center=0,
-                     annot_kws={"size": annot_size}, fmt="0.2f", linewidths=0.5,
+                     annot_kws={"size": annot_size},
+                     fmt="0.2f", linewidths=0.5,
                      square=square, cbar=cbar, cmap=cmap)
     ax.set_title(title, fontsize=title_size,
                  color=title_color, fontweight="bold")
