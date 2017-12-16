@@ -28,11 +28,10 @@ import seaborn as sns
 from pandas.core.base import PandasObject
 
 
-def sum_returns(df, groupby):
-    def returns_prod(returns):
-        return (returns + 1).prod() - 1
-
-    return df.groupby(groupby).apply(returns_prod)
+def sum_returns(returns, groupby):
+    def returns_prod(data):
+        return (data + 1).prod() - 1
+    return returns.groupby(groupby).apply(returns_prod)
 
 
 def get(returns, eoy=False, is_prices=False):
