@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 __author__ = "Ran Aroussi"
 __all__ = ['get', 'plot']
 
@@ -83,9 +83,10 @@ def plot(returns,
          figsize=None,
          cmap='RdYlGn',
          cbar=True,
-         square=False):
+         square=False,
+         is_prices=False):
 
-    returns = get(returns)
+    returns = get(returns, is_prices)
     returns *= 100
 
     if figsize is None:

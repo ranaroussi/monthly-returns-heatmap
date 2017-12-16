@@ -1,6 +1,10 @@
 Change Log
 ===========
 
+0.0.5
+-------
+- Added price option support to ``plot()``
+
 0.0.4
 -------
 - Option to work with price data instead of returns (add ``is_prices=True``)
