@@ -1,6 +1,16 @@
 Change Log
 ===========
 
+0.0.4
+-------
+- Option to work with price data instead of returns (add ``is_prices=True``)
+- More accurate monthly return calculations
+
+0.0.3
+-------
+- Handle missing months
+- Nicer heatmaps
+
 0.0.2
 -------
 - Expects returns as input instead of calculating it
