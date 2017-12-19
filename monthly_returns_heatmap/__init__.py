@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.0.7"
+__version__ = "0.0.8"
 __author__ = "Ran Aroussi"
 __all__ = ['get', 'plot']
 
@@ -51,7 +51,7 @@ def get(returns, eoy=False, is_prices=False):
     original_returns = returns.copy()
 
     # build monthly dataframe
-    returns_index = returns.resample('BMS').first().index
+    returns_index = returns.resample('MS').first().index
     returns_values = sum_returns(returns,
         (returns.index.year, returns.index.month)).values
     returns = pd.DataFrame(index=returns_index, data={

@@ -1,6 +1,10 @@
 Change Log
 ===========
 
+0.0.6
+-------
+- Bugfix
+
 0.0.7
 -------
 - More accurate EOY return calculations
