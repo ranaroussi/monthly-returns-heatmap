@@ -1,7 +1,11 @@
 Change Log
 ===========
 
-0.0.6
+0.0.9
+-------
+- Fixed to work with Pandas 0.23.1
+
+0.0.8
 -------
 - Bugfix
 
