@@ -51,11 +51,18 @@ def get(returns, eoy=False, is_prices=False):
     original_returns = returns.copy()
 
     # build monthly dataframe
-    returns_index = returns.resample('MS').first().index
-    returns_values = sum_returns(returns,
-        (returns.index.year, returns.index.month)).values
-    returns = pd.DataFrame(index=returns_index, data={
-                           'Returns': returns_values})
+    # returns_index = returns.resample('MS').first().index
+    # returns_values = sum_returns(returns,
+    #     (returns.index.year, returns.index.month)).values
+    # returns = pd.DataFrame(index=returns_index, data={
+    #                        'Returns': returns_values})
+
+    # pandas 0.23.1
+    returns = pd.DataFrame(sum_returns(returns,
+        returns.index.strftime('%Y-%m-01')))
+    returns.columns = ['Returns']
+    returns.index = pd.to_datetime(returns.index)
+
 
     # get returnsframe
     returns['Year'] = returns.index.strftime('%Y')
@@ -76,7 +83,7 @@ def get(returns, eoy=False, is_prices=False):
 
     if eoy:
         returns['eoy'] = sum_returns(original_returns,
-            original_returns.index.year).values
+                                     original_returns.index.year).values
 
     return returns
 
