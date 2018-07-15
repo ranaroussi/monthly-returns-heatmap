@@ -1,9 +1,13 @@
 Change Log
 ===========
 
+0.0.10
+-------
+- Added compounded parameter for returns calculation flexibility
+
 0.0.9
 -------
-- Fixed to work with Pandas 0.23.1
+- Fixed to work with Pandas >= 0.23.1
 
 0.0.8
 -------
