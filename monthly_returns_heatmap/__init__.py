@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.0.9"
+__version__ = "0.0.10"
 __author__ = "Ran Aroussi"
 __all__ = ['get', 'plot']
 
@@ -28,13 +28,15 @@ import seaborn as sns
 from pandas.core.base import PandasObject
 
 
-def sum_returns(returns, groupby):
+def sum_returns(returns, groupby, compounded=True):
     def returns_prod(data):
         return (data + 1).prod() - 1
-    return returns.groupby(groupby).apply(returns_prod)
+    if compounded:
+        return returns.groupby(groupby).apply(returns_prod)
+    return returns.groupby(groupby).sum()
 
 
-def get(returns, eoy=False, is_prices=False):
+def get(returns, eoy=False, is_prices=False, compounded=True):
 
     # get close / first column if given DataFrame
     if isinstance(returns, pd.DataFrame):
@@ -53,16 +55,16 @@ def get(returns, eoy=False, is_prices=False):
     # build monthly dataframe
     # returns_index = returns.resample('MS').first().index
     # returns_values = sum_returns(returns,
-    #     (returns.index.year, returns.index.month)).values
+    #     [returns.index.year, returns.index.month]).values
     # returns = pd.DataFrame(index=returns_index, data={
     #                        'Returns': returns_values})
 
-    # pandas 0.23.1
+    # simpler, works with pandas 0.23.1
     returns = pd.DataFrame(sum_returns(returns,
-        returns.index.strftime('%Y-%m-01')))
+                                       returns.index.strftime('%Y-%m-01'),
+                                       compounded))
     returns.columns = ['Returns']
     returns.index = pd.to_datetime(returns.index)
-
 
     # get returnsframe
     returns['Year'] = returns.index.strftime('%Y')
@@ -98,9 +100,10 @@ def plot(returns,
          cbar=True,
          square=False,
          is_prices=False,
+         compounded=True,
          eoy=False):
 
-    returns = get(returns, eoy=eoy, is_prices=is_prices)
+    returns = get(returns, eoy=eoy, is_prices=is_prices, compounded=compounded)
     returns *= 100
 
     if figsize is None:
