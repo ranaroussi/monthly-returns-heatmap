@@ -18,7 +18,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='monthly-returns-heatmap',
-    version="0.0.9",
+    version="0.0.10",
     description='Utility to create a monthly returns heatmap from Pandas series',
     long_description=long_description,
     url='https://github.com/ranaroussi/monthly-returns-heatmap',
