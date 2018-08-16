@@ -1,6 +1,10 @@
 Change Log
 ===========
 
+0.0.11
+-------
+- Open to pass axis to ``plot_returns_heatmap()`` and add the heatmap to an existing plot
+
 0.0.10
 -------
 - Added compounded parameter for returns calculation flexibility
