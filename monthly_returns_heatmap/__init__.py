@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__version__ = "0.0.10"
+__version__ = "0.0.11"
 __author__ = "Ran Aroussi"
 __all__ = ['get', 'plot']
 
@@ -101,17 +101,20 @@ def plot(returns,
          square=False,
          is_prices=False,
          compounded=True,
-         eoy=False):
+         eoy=False,
+         ax=None):
 
     returns = get(returns, eoy=eoy, is_prices=is_prices, compounded=compounded)
     returns *= 100
 
-    if figsize is None:
+    if figsize is None and ax is None:
         size = list(plt.gcf().get_size_inches())
         figsize = (size[0], size[0] // 2)
         plt.close()
 
-    fig, ax = plt.subplots(figsize=figsize)
+    if ax is None:
+        fig, ax = plt.subplots(figsize=figsize)
+
     ax = sns.heatmap(returns, ax=ax, annot=True, center=0,
                      annot_kws={"size": annot_size},
                      fmt="0.2f", linewidths=0.5,
@@ -119,10 +122,11 @@ def plot(returns,
     ax.set_title(title, fontsize=title_size,
                  color=title_color, fontweight="bold")
 
-    fig.subplots_adjust(hspace=0)
-    plt.yticks(rotation=0)
-    plt.show()
-    plt.close()
+    if ax is None:
+        fig.subplots_adjust(hspace=0)
+        plt.yticks(rotation=0)
+        plt.show()
+        plt.close()
 
 
 PandasObject.get_returns_heatmap = get
