@@ -1,13 +1,9 @@
 Python Monthly Returns Heatmap
 ==============================
 
-.. image:: https://img.shields.io/pypi/pyversions/monthly-returns-heatmap.svg?maxAge=60
+.. image:: https://img.shields.io/badge/python-3.4+-blue.svg?style=flat
     :target: https://pypi.python.org/pypi/monthly-returns-heatmap
     :alt: Python version
-
-.. image:: https://img.shields.io/travis/ranaroussi/monthly-returns-heatmap/master.svg?
-    :target: https://travis-ci.org/ranaroussi/monthly-returns-heatmap
-    :alt: Travis-CI build status
 
 .. image:: https://img.shields.io/pypi/v/monthly-returns-heatmap.svg?maxAge=60
     :target: https://pypi.python.org/pypi/monthly-returns-heatmap
@@ -17,11 +13,19 @@ Python Monthly Returns Heatmap
     :target: https://pypi.python.org/pypi/monthly-returns-heatmap
     :alt: PyPi status
 
+.. image:: https://img.shields.io/travis/ranaroussi/monthly-returns-heatmap/master.svg?maxAge=1
+    :target: https://travis-ci.org/ranaroussi/monthly-returns-heatmap
+    :alt: Travis-CI build status
+
+.. image:: https://img.shields.io/badge/Patreon-accepting-ff69b4.svg?style=flat
+    :target: https://www.patreon.com/aroussi
+    :alt: Patreon Status
+
 .. image:: https://img.shields.io/github/stars/ranaroussi/monthly-returns-heatmap.svg?style=social&label=Star&maxAge=60
     :target: https://github.com/ranaroussi/monthly-returns-heatmap
     :alt: Star this repo
 
-.. image:: https://img.shields.io/twitter/follow/aroussi.svg?style=social&label=Follow%20Me&maxAge=60
+.. image:: https://img.shields.io/twitter/follow/aroussi.svg?style=social&label=Follow&maxAge=60
     :target: https://twitter.com/aroussi
     :alt: Follow me on twitter
 
