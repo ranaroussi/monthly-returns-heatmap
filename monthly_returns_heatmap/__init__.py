@@ -128,6 +128,10 @@ def plot(returns,
         plt.show()
         plt.close()
 
+    return fig, ax
+
+
+
 
 PandasObject.get_returns_heatmap = get
 PandasObject.plot_returns_heatmap = plot
